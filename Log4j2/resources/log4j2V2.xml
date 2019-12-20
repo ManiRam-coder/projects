@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG">
+<Properties>
+    <Property name="log-path">D:\source\Log4j2\logs</Property>
+</Properties>
+    <Appenders>
+        <RollingFile name="InternalServiceFile" fileName="${log-path}/internal.log" 
+                    filePattern="${log-path}/internal-%d{MM-dd-yyyy}-%i.log">
+        <PatternLayout>
+            <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+        </PatternLayout>
+        <Policies>
+            <SizeBasedTriggeringPolicy size="1KB"/>
+        </Policies>
+		<DefaultRolloverStrategy max="5"/> 
+    </RollingFile>
+
+	<RollingFile name="ExternalServiceFile" fileName="${log-path}/external.log" 
+                    filePattern="${log-path}/external-%d{MM-dd-yyyy}-%i.log">
+        <PatternLayout>
+            <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+        </PatternLayout>
+        <Policies>
+            <SizeBasedTriggeringPolicy size="1KB"/>
+        </Policies>
+		<DefaultRolloverStrategy max="5"/> 
+    </RollingFile>
+	
+    </Appenders>
+    <Loggers>
+        <Logger name="InternalServiceFile" level="debug" additivity="false">
+            <AppenderRef ref="InternalServiceFile" level="debug"/>
+        </Logger>
+		<Logger name="ExternalServiceFile" level="debug" additivity="false">
+            <AppenderRef ref="ExternalServiceFile" level="debug"/>
+        </Logger>
+    </Loggers>
+</Configuration>

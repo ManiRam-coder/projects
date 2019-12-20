@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+<Properties>
+    <Property name="log-path">D:\source\Log4j2\logs</Property>
+</Properties>
+<Appenders>
+    <!-- file appender -->
+    <RollingFile name="commons-log" fileName="${log-path}/commons.log"
+                 filePattern="${log-path}/commons-%d{yyyy-MM-dd}.log">
+        <!-- log pattern -->
+        <PatternLayout>
+            <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss} %c{1} - %msg%n</pattern>
+        </PatternLayout>
+
+        <!-- set file size policy -->
+        <Policies>
+            <TimeBasedTriggeringPolicy />
+            <SizeBasedTriggeringPolicy size="5 MB" />
+        </Policies>
+    </RollingFile>
+    <RollingFile name="analytics-log" fileName="${log-path}/analytics.log"
+                 filePattern="${log-path}/analytics-%d{yyyy-MM-dd}.log">
+        <PatternLayout>
+            <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss} %c{1} - %msg%n</pattern>
+        </PatternLayout>
+        <Policies>
+            <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+        </Policies>
+    </RollingFile>
+</Appenders>
+<Loggers>
+    <Logger name="com.log4j2" level="debug" additivity="false">
+    <appender-ref ref="console-log" level="debug"/>
+	<appender-ref ref="analytics-log" level="warn"/>
+	<appender-ref ref="commons-log" level="debug"/>
+    <!-- you can put other appender references here if you want to log you 
+         app logs in a specific file -->
+</Logger>
+<Logger name="commons-log" level="debug" additivity="false">
+    <appender-ref ref="commons-log" level="debug"/>
+</Logger>
+<Logger name="analytics-log" level="debug" additivity="false">
+    <appender-ref ref="analytics-log" level="warn"/>
+</Logger>
+    <Root level="info" additivity="false">
+        <AppenderRef ref="console-log"/>
+    </Root>
+</Loggers>
+</Configuration>

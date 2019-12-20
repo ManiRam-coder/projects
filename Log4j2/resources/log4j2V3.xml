@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<Configuration name="RollingBuilder" status="DEBUG">
+  <Appenders>
+    <RollingFile name="InternalServiceFile" fileName="D:\source\Log4j2\logs\InternalServiceFile.log" filePattern="D:\source\Log4j2\logs\InternalServiceFile-%i.log">
+      <PatternLayout pattern="%d [%t] %-5level: %msg%n"/>
+      <DefaultRolloverStrategy max="5"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="2KB"/>
+      </Policies>
+    </RollingFile>
+    <RollingFile name="ExternalServiceFile" fileName="D:\source\Log4j2\logs\ExternalServiceFile.log" filePattern="D:\source\Log4j2\logs\ExternalServiceFile-%i.log">
+      <PatternLayout pattern="%d [%t] %-5level: %msg%n"/>
+      <DefaultRolloverStrategy max="5"/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="2KB"/>
+      </Policies>
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Logger name="InternalServiceFile" level="DEBUG" additivity="false">
+      <AppenderRef ref="InternalServiceFile" level="DEBUG"/>
+    </Logger>
+    <Logger name="ExternalServiceFile" level="DEBUG" additivity="false">
+      <AppenderRef ref="ExternalServiceFile" level="DEBUG"/>
+    </Logger>
+    <Root level="DEBUG">
+      <AppenderRef ref="rolling" level="DEBUG"/>
+    </Root>
+  </Loggers>
+</Configuration>
